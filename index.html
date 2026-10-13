@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Al-Farg'oniy - O'quv Markazi va Xususiy Maktab</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        .glass-nav {
+            background: rgba(30, 58, 138, 0.95);
+            backdrop-filter: blur(12px);
+        }
+        .dark .glass-nav {
+            background: rgba(15, 23, 42, 0.95);
+        }
+        
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-gray-950 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Header / Navigatsiya -->
+    <header class="glass-nav text-white sticky top-0 z-50 shadow-xl border-b border-blue-800/40 dark:border-gray-800">
+        <div class="container mx-auto px-4 py-3.5 flex justify-between items-center">
+            
+            <!-- Logo -->
+            <div onclick="scrollToSection('reklama')" class="flex items-center gap-3 cursor-pointer group">
+                <div class="w-10 h-10 rounded-xl bg-amber-400 flex items-center justify-center text-blue-950 shadow-lg group-hover:scale-105 transition-transform">
+                    <i class="fas fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-white">Al-Farg'oniy</span>
+                    <span class="block text-[10px] text-amber-300 uppercase tracking-widest font-bold">Ta'lim Maskani</span>
+                </div>
+            </div>
+
+            <!-- Navigatsiya Tugmalari -->
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-semibold">
+                <button onclick="scrollToSection('tillar')" class="text-blue-100 hover:text-amber-400 transition flex items-center gap-1.5"><i class="fas fa-language text-amber-400"></i> Tillar</button>
+                <button onclick="scrollToSection('maktab')" class="text-blue-100 hover:text-amber-400 transition flex items-center gap-1.5"><i class="fas fa-school text-amber-400"></i> Maktab</button>
+                <button onclick="scrollToSection('oqituvchilar')" class="text-blue-100 hover:text-amber-400 transition flex items-center gap-1.5"><i class="fas fa-user-graduate text-amber-400"></i> O'qituvchilar</button>
+                <button onclick="scrollToSection('ovqatlar')" class="text-blue-100 hover:text-amber-400 transition flex items-center gap-1.5"><i class="fas fa-utensils text-amber-400"></i> Oshxona</button>
+                <button onclick="scrollToSection('chegirmalar')" class="text-blue-100 hover:text-amber-400 transition flex items-center gap-1.5"><i class="fas fa-tags text-amber-400"></i> Chegirmalar</button>
+            </nav>
+
+            <!-- O'ng tomondagi tugmalar -->
+            <div class="flex items-center gap-3">
+                <!-- Tungi rejim tugmasi -->
+                <button id="themeToggleBtn" onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-blue-800/60 dark:bg-gray-800 text-amber-400 hover:bg-blue-700 dark:hover:bg-gray-700 transition border border-blue-700/50 dark:border-gray-700" title="Rejimni o'zgartirish">
+                    <i class="fas fa-moon text-lg dark:hidden"></i>
+                    <i class="fas fa-sun text-lg hidden dark:inline"></i>
+                </button>
+
+                <!-- Ro'yxatdan o'tish modal tugmasi -->
+                <button onclick="openModal('Azo bo\'lish')" class="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-blue-950 font-bold px-4 py-2.5 rounded-xl transition shadow-lg hover:shadow-amber-500/20 active:scale-95 flex items-center gap-2 text-sm">
+                    <i class="fas fa-pen-to-square"></i>
+                    <span class="hidden sm:inline">Azo bo'lish</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobil menyu bar -->
+        <div class="lg:hidden flex overflow-x-auto space-x-3 px-4 py-2 bg-blue-950/90 text-xs font-semibold scrollbar-none border-t border-blue-800/40">
+            <button onclick="scrollToSection('tillar')" class="text-blue-100 whitespace-nowrap py-1">Tillar</button>
+            <button onclick="scrollToSection('maktab')" class="text-blue-100 whitespace-nowrap py-1">Maktab</button>
+            <button onclick="scrollToSection('oqituvchilar')" class="text-blue-100 whitespace-nowrap py-1">O'qituvchilar</button>
+            <button onclick="scrollToSection('ovqatlar')" class="text-blue-100 whitespace-nowrap py-1">Oshxona</button>
+            <button onclick="scrollToSection('chegirmalar')" class="text-blue-100 whitespace-nowrap py-1">Chegirmalar</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- 1. REKLAMA BANNER / HERO -->
+        <section id="reklama" class="relative bg-gradient-to-br from-blue-900 via-indigo-950 to-slate-950 text-white py-20 lg:py-28 overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10 text-center">
+                <span class="inline-flex items-center gap-2 bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-extrabold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 animate-pulse">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span> Kuzgi Qabul Ochiq
+                </span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight max-w-4xl mx-auto mb-6">
+                    "Al-Farg'oniy" O'quv Markazi va Xususiy Maktabi
+                </h1>
+                <p class="text-lg sm:text-xl text-blue-100/90 max-w-2xl mx-auto mb-10 font-normal leading-relaxed">
+                    Kelajagingizni biz bilan birga quring! Sifatli ta'lim, tajribali ustozlar va zamonaviy xususiy maktab sharoitlari.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="scrollToSection('chegirmalar')" class="bg-amber-400 hover:bg-amber-500 text-blue-950 font-bold px-8 py-4 rounded-xl shadow-xl hover:shadow-amber-500/25 transition transform hover:-translate-y-0.5">
+                        Aksiyalarni ko'rish
+                    </button>
+                    <button onclick="openModal('Konsultatsiya olish')" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-8 py-4 rounded-xl backdrop-blur-md transition">
+                        Konsultatsiya olish
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATISTIKA -->
+        <section class="py-10 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+            <div class="container mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div>
+                    <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-amber-400">10+</div>
+                    <div class="text-gray-500 text-sm mt-1">Yillik Tajriba</div>
+                </div>
+                <div>
+                    <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-amber-400">1500+</div>
+                    <div class="text-gray-500 text-sm mt-1">Bitiruvchilar</div>
+                </div>
+                <div>
+                    <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-amber-400">25+</div>
+                    <div class="text-gray-500 text-sm mt-1">Malakali Ustozlar</div>
+                </div>
+                <div>
+                    <div class="text-3xl sm:text-4xl font-extrabold text-blue-600 dark:text-amber-400">98%</div>
+                    <div class="text-gray-500 text-sm mt-1">Yuqori Natija</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. TILLAR VA NARXLAR -->
+        <section id="tillar" class="py-20 container mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <h2 class="text-3xl font-extrabold text-blue-950 dark:text-white mb-3">Chet Tili Kurslari & Narxlar</h2>
+                <p class="text-gray-600 dark:text-gray-400">Sifatli ta'lim va hamyonbop narxlar kafolati</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200/80 dark:border-gray-800 shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/50 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400 text-2xl mb-6">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Ingliz Tili (IELTS / CEFR)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">Barcha darajalar va intensiv IELTS tayyorlov darslari. Zamonaviy metodika asosida o'rgatiladi.</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400 mb-6">500,000 <span class="text-sm font-normal text-gray-500">so'm / oy</span></div>
+                        <button onclick="openModal('Ingliz Tili Kursi')" class="w-full bg-blue-50 dark:bg-blue-950/80 hover:bg-blue-600 hover:text-white text-blue-700 dark:text-blue-300 font-bold py-3.5 rounded-xl transition-all border border-blue-200 dark:border-blue-800">
+                            Azo bo'lish
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200/80 dark:border-gray-800 shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-amber-100 dark:bg-amber-900/50 rounded-2xl flex items-center justify-center text-amber-600 dark:text-amber-400 text-2xl mb-6">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Rus Tili (So'zlashuv)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">Mukammal grammatika va tez fursatda erkin so'zlashuv mashg'ulotlari.</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400 mb-6">450,000 <span class="text-sm font-normal text-gray-500">so'm / oy</span></div>
+                        <button onclick="openModal('Rus Tili Kursi')" class="w-full bg-blue-50 dark:bg-blue-950/80 hover:bg-blue-600 hover:text-white text-blue-700 dark:text-blue-300 font-bold py-3.5 rounded-xl transition-all border border-blue-200 dark:border-blue-800">
+                            Azo bo'lish
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white dark:bg-gray-900 rounded-3xl p-8 border border-gray-200/80 dark:border-gray-800 shadow-lg flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-indigo-100 dark:bg-indigo-900/50 rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-2xl mb-6">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Arab Tili & Nemis Tili</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6">Noldan o'rganuvchilar va xorijda o'qishni rejalashtirganlar uchun intensiv kurs.</p>
+                    </div>
+                    <div>
+                        <div class="text-3xl font-black text-emerald-600 dark:text-emerald-400 mb-6">550,000 <span class="text-sm font-normal text-gray-500">so'm / oy</span></div>
+                        <button onclick="openModal('Arab va Nemis Tili')" class="w-full bg-blue-50 dark:bg-blue-950/80 hover:bg-blue-600 hover:text-white text-blue-700 dark:text-blue-300 font-bold py-3.5 rounded-xl transition-all border border-blue-200 dark:border-blue-800">
+                            Azo bo'lish
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. MAKTAB SHAROITLARI -->
+        <section id="maktab" class="py-20 bg-gray-100/80 dark:bg-gray-900/60 transition-colors duration-300">
+            <div class="container mx-auto px-4">
+                <div class="text-center max-w-2xl mx-auto mb-14">
+                    <h2 class="text-3xl font-extrabold text-blue-950 dark:text-white mb-3">Xususiy Maktab Sharoitlari</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Farzandingiz uchun eng qulay va xavfsiz ta'lim muhiti</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-hover bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200/80 dark:border-gray-800 text-center">
+                        <div class="w-16 h-16 bg-amber-500/10 text-amber-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white mb-3">3 Mahal Issiq Ovqat</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">O'quvchilar salomatligi uchun parhezshunoslar tomonidan tuzilgan menyu.</p>
+                    </div>
+
+                    <div class="card-hover bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200/80 dark:border-gray-800 text-center">
+                        <div class="w-16 h-16 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white mb-3">Zamonaviy Sinfxonalar</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Interaktiv doskalar, IT kompyuter xonasi va shinam o'quv zonalari.</p>
+                    </div>
+
+                    <div class="card-hover bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200/80 dark:border-gray-800 text-center">
+                        <div class="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold dark:text-white mb-3">Xavfsiz Hudud</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">24/7 video kuzatuv kameralari va qo'riqlash xizmati nazorati.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. O'QITUVCHILAR -->
+        <section id="oqituvchilar" class="py-20 container mx-auto px-4">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <h2 class="text-3xl font-extrabold text-blue-950 dark:text-white mb-3">Bizning O'qituvchilar</h2>
+                <p class="text-gray-600 dark:text-gray-400">O'z sohasining mutaxassislari va tajribali ustozlar</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="card-hover bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-md flex items-center gap-6">
+                    <div class="w-20 h-20 bg-gradient-to-tr from-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center text-2xl font-black text-white shrink-0 shadow-md">
+                        A.S
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold dark:text-white">Anvar Salimov</h3>
+                        <p class="text-blue-600 dark:text-blue-400 text-sm font-semibold mb-3">IELTS Senior Instructor (IELTS 8.5)</p>
+                        <a href="tel:+998901234567" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+                            <i class="fas fa-phone-alt"></i> O'qituvchi bilan bog'lanish
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-hover bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-md flex items-center gap-6">
+                    <div class="w-20 h-20 bg-gradient-to-tr from-amber-500 to-amber-600 rounded-2xl flex items-center justify-center text-2xl font-black text-white shrink-0 shadow-md">
+                        M.K
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold dark:text-white">Malika Karimova</h3>
+                        <p class="text-amber-600 dark:text-amber-400 text-sm font-semibold mb-3">Boshlang'ich sinf & Rus tili mutaxassisi</p>
+                        <a href="tel:+998901234567" class="inline-flex items-center gap-2 text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline">
+                            <i class="fas fa-phone-alt"></i> O'qituvchi bilan bog'lanish
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. OSHXONA -->
+        <section id="ovqatlar" class="py-20 bg-gray-100/80 dark:bg-gray-900/60 transition-colors duration-300">
+            <div class="container mx-auto px-4">
+                <div class="text-center max-w-2xl mx-auto mb-14">
+                    <h2 class="text-3xl font-extrabold text-blue-950 dark:text-white mb-3">Maktab Oshxonasi Menusi</h2>
+                    <p class="text-gray-600 dark:text-gray-400">Har kuni yangi va toza mahsulotlardan tayyorlangan issiq taomlar</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card-hover bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-md">
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-widest mb-2"><i class="fas fa-sun mr-1"></i> Nonushta</div>
+                        <h3 class="text-lg font-bold dark:text-white mb-2">Sutli Bo'tqalar & Pishiriqlar</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Tvorogli pishiriq, sariyog', yangi damlangan choy va vitaminli bo'tqa.</p>
+                    </div>
+
+                    <div class="card-hover bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-md">
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-widest mb-2"><i class="fas fa-utensils mr-1"></i> Tushlik</div>
+                        <h3 class="text-lg font-bold dark:text-white mb-2">Issiq Taom va Salat</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Gulyash, toza go'shtli kotlet, mastava hamda yangi sabzavotli salat.</p>
+                    </div>
+
+                    <div class="card-hover bg-white dark:bg-gray-900 p-8 rounded-3xl border border-gray-200/80 dark:border-gray-800 shadow-md">
+                        <div class="text-xs font-bold text-amber-500 uppercase tracking-widest mb-2"><i class="fas fa-apple-whole mr-1"></i> Ikkinchi Tushlik</div>
+                        <h3 class="text-lg font-bold dark:text-white mb-2">Mevalar va Sharbat</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm">Mavsumiy mevalar, pechenye va shirin sharbatlar.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CHEGIRMALAR -->
+        <section id="chegirmalar" class="py-20 bg-amber-400 text-blue-950 text-center relative overflow-hidden">
+            <div class="container mx-auto px-4 max-w-3xl">
+                <span class="inline-block bg-blue-950 text-white text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-4">Aksiya</span>
+                <h2 class="text-3xl md:text-5xl font-black mb-4">Maxsus Chegirmalar va Aksiyalar!</h2>
+                <p class="text-lg md:text-xl font-medium mb-8 text-blue-950/90 leading-relaxed">
+                    Bitta oiladan 2 nafar farzand uchun <strong>15% chegirma</strong> hamda birinchi sinov darsi <strong class="underline">BEPUL</strong>!
+                </p>
+                <button onclick="openModal('Chegirma uchun ariza')" class="bg-blue-950 hover:bg-blue-900 text-white font-bold px-10 py-4 rounded-xl shadow-2xl transition transform hover:-translate-y-0.5 text-base">
+                    Joyingizni Band Qiling
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-950 dark:bg-gray-950 text-white py-10 border-t border-blue-900 dark:border-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-bold text-lg mb-1">Al-Farg'oniy O'quv Markazi & Xususiy Maktabi</p>
+            <p class="text-gray-400 text-sm mb-4">Murojaat uchun: +998 (90) 123-45-67</p>
+            <div class="text-xs text-gray-500">
+                &copy; 2026 Al-Farg'oniy. Barcha huquqlar himoyalangan.
+            </div>
+        </div>
+    </footer>
+
+    <!-- RO'YXATDAN O'TISH MODAL OYNASI -->
+    <div id="registerModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white dark:bg-gray-900 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-gray-100 dark:border-gray-800" id="modalBox">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modalTitle" class="text-xl font-bold dark:text-white">Azo bo'lish</h3>
+                <button onclick="closeModal()" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-1">Ismingiz</label>
+                    <input type="text" required placeholder="Ali Valiyev" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-1">Telefon Raqamingiz</label>
+                    <input type="tel" required placeholder="+998 90 123 45 67" class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition">
+                </div>
+                <button type="submit" class="w-full bg-amber-400 hover:bg-amber-500 text-blue-950 font-bold py-3.5 rounded-xl shadow-lg transition active:scale-95">
+                    Yuborish
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIKASI -->
+    <script>
+        // RAVON SCROLL FUNKSIYASI (Barcha tugmalar uchun)
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Brauzer xashini tozalash va silliq siljitish
+                window.history.pushState("", "", window.location.pathname);
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Tungi Rejim (Dark Mode)
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Modal Oynasi (Pop-up)
+        function openModal(title) {
+            const modal = document.getElementById('registerModal');
+            document.getElementById('modalTitle').innerText = title || "Azo bo'lish";
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('registerModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            alert("Arizangiz qabul qilindi! Tez orada bog'lanamiz.");
+            closeModal();
+        }
+
+        // URL da hash bo'lsa uni tozalash
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.location.hash) {
+                window.history.pushState("", "", window.location.pathname);
+            }
+        });
+    </script>
+</body>
+</html>
